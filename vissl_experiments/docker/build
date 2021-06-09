@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -e
+
+if [[ -n "$VISSL_EXPERIMENTS_DEBUG" ]]; then
+    set -x
+fi
+
+function usage() {
+    echo -n \
+         "Usage: $(basename "$0")
+Build Docker images.
+"
+}
+
+if [ "${BASH_SOURCE[0]}" = "${0}" ]
+then
+    if [ "${1:-}" = "--help" ]
+    then
+        usage
+        exit
+    fi
+
+    docker build -t vissl_experiments -f Dockerfile .
+fi
