@@ -23,10 +23,12 @@ pd.set_option("display.max_columns", None)
 
 # %%
 data_dir = '/opt/data/research/ssl/resisc45/'
+class_names = [basename(p) for p in glob.glob(join(data_dir, '**'))]
 output_dir = '/opt/data/research/ssl/resisc45-split/'
 image_paths = glob.glob(join(data_dir, '**/*.jpg'))
 train_prop = 0.6
 val_prop = 0.2
+train_subsets = [0.1, 0.2]
 nb_images = len(image_paths)
 nb_train = int(round(train_prop * nb_images))
 nb_val = int(round(val_prop * nb_images))
@@ -46,6 +48,9 @@ def copy_split(split, image_paths, output_dir):
         make_dir(dst_path, use_dirname=True)
         shutil.copyfile(image_path, dst_path)
 
-copy_split('train', train_paths, output_dir)
-copy_split('val', val_paths, output_dir)
-copy_split('test', test_paths, output_dir)
+for class_name in class_names:
+
+for train_subset in train_subsets:
+    copy_split('train', train_paths, output_dir)
+    copy_split('val', val_paths, output_dir)
+    copy_split('test', test_paths, output_dir)
